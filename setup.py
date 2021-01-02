@@ -8,10 +8,10 @@ setup(
     version='1.0.0',
     packages=['WordToVec'],
     package_data={'WordToVec': ['*.pxd', '*.pyx', '*.c']},
-    url='https://github.com/olcaytaner/WordToVec-Cy',
+    url='https://github.com/StarlangSoftware/WordToVec-Cy',
     license='',
     author='olcay',
-    author_email='olcaytaner@isikun.edu.tr',
+    author_email='olcay.yildiz@ozyegin.edu.tr',
     description='Word2Vec Library',
     install_requires=['NlpToolkit-Corpus-Cy']
 )
