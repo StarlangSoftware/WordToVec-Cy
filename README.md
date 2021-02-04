@@ -1,5 +1,6 @@
 For Developers
 ============
+
 You can also see [Python](https://github.com/starlangsoftware/WordToVec-Py), [Java](https://github.com/starlangsoftware/WordToVec), [C++](https://github.com/starlangsoftware/WordToVec-CPP), [Swift](https://github.com/starlangsoftware/WordToVec-Swift), or [C#](https://github.com/starlangsoftware/WordToVec-CS) repository.
 
 ## Requirements
@@ -28,7 +29,7 @@ Use Git for cloning the code to your local or below line for Ubuntu:
 
 A directory called WordToVec will be created. Or you can use below link for exploring the code:
 
-	git clone https://github.com/starlangsoftware/WordToVec-Py.git
+	git clone https://github.com/starlangsoftware/WordToVec-Cy.git
 
 ## Open project with Pycharm IDE
 
@@ -36,6 +37,17 @@ Steps for opening the cloned project:
 
 * Start IDE
 * Select **File | Open** from main menu
-* Choose `WordToVec-Py` file
+* Choose `WordToVec-Cy` file
 * Select open as project option
 * Couple of seconds, dependencies will be downloaded. 
+
+Detailed Description
+============
+
+To initialize artificial neural network:
+
+	NeuralNetwork(self, corpus: Corpus, parameter: WordToVecParameter)
+
+To train neural network:
+
+	train(self) -> VectorizedDictionary
