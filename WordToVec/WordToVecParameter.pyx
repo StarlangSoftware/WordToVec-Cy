@@ -11,6 +11,7 @@ cdef class WordToVecParameter:
         self.__negativeSamplingSize = 5
         self.__numberOfIterations = 3
         self.__window = 5
+        self.__seed = 1
 
     cpdef int getLayerSize(self):
         """
@@ -89,6 +90,17 @@ cdef class WordToVecParameter:
         """
         return self.__numberOfIterations
 
+    cpdef int getSeed(self):
+        """
+        Accessor for the seed attribute.
+
+        RETURNS
+        -------
+        int
+            Seed to train the network.
+        """
+        return self.__seed
+
     cpdef setLayerSize(self, int layerSize):
         """
         Mutator for the layerSize attribute.
@@ -165,3 +177,14 @@ cdef class WordToVecParameter:
             New number of iterations.
         """
         self.__numberOfIterations = numberOfIterations
+
+    cpdef setSeed(self, int seed):
+        """
+        Mutator for the numberOfIterations attribute.
+
+        PARAMETERS
+        ----------
+        seed : int
+            New seed.
+        """
+        self.__seed = seed

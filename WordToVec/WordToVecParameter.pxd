@@ -11,6 +11,7 @@ cdef class WordToVecParameter:
     cpdef bint isHierarchicalSoftMax(self)
     cpdef int getNegativeSamplingSize(self)
     cpdef int getNumberOfIterations(self)
+    cpdef int getSeed(self)
     cpdef setLayerSize(self, int layerSize)
     cpdef setCbow(self, bint cbow)
     cpdef setAlpha(self, double alpha)
@@ -18,3 +19,4 @@ cdef class WordToVecParameter:
     cpdef setHierarchialSoftMax(self, bint hierarchicalSoftMax)
     cpdef setNegativeSamplingSize(self, int negativeSamplingSize)
     cpdef setNumberOfIterations(self, int numberOfIterations)
+    cpdef setSeed(self, int seed)
