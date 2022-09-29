@@ -2,7 +2,9 @@ cdef class VocabularyWord(Word):
 
     MAX_CODE_LENGTH = 40
 
-    def __init__(self, name: str, count: int):
+    def __init__(self,
+                 name: str,
+                 count: int):
         """
         Constructor for a VocabularyWord. The constructor gets name and count values and sets the corresponding
         attributes. It also initializes the code and point arrays for this word.
@@ -18,7 +20,7 @@ cdef class VocabularyWord(Word):
         self.__count = count
         self.__code = self.MAX_CODE_LENGTH * [0]
         self.__point = self.MAX_CODE_LENGTH * [0]
-        self.__codeLength = 0
+        self.__code_length = 0
 
     def __lt__(self, other: VocabularyWord) -> bool:
         return self.__count < other.__count
@@ -49,7 +51,7 @@ cdef class VocabularyWord(Word):
         codeLength : int
             New value for the codeLength.
         """
-        self.__codeLength = codeLength
+        self.__code_length = codeLength
 
     cpdef setCode(self, int index, int value):
         """
@@ -86,7 +88,7 @@ cdef class VocabularyWord(Word):
         int
             Length of the Huffman code for this word.
         """
-        return self.__codeLength
+        return self.__code_length
 
     cpdef int getPoint(self, int index):
         """

@@ -3,7 +3,7 @@ from Dictionary.Word cimport Word
 
 cdef class VocabularyWord(Word):
 
-    cdef int __count, __codeLength
+    cdef int __count, __code_length
     cdef list __code, __point
 
     cpdef int getCount(self)

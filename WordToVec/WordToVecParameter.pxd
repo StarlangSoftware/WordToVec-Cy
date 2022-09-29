@@ -1,7 +1,7 @@
 cdef class WordToVecParameter:
 
-    cdef int __layerSize, __window, __negativeSamplingSize, __numberOfIterations
-    cdef bint __cbow, __hierarchicalSoftMax
+    cdef int __layer_size, __window, __negative_sampling_size, __number_of_iterations, __seed
+    cdef bint __cbow, __hierarchical_soft_max
     cdef double __alpha
 
     cpdef int getLayerSize(self)

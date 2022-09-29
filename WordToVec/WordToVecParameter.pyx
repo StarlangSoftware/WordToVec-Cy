@@ -6,10 +6,10 @@ cdef class WordToVecParameter:
         """
         self.__alpha = 0.025
         self.__cbow = True
-        self.__hierarchicalSoftMax = False
-        self.__layerSize = 100
-        self.__negativeSamplingSize = 5
-        self.__numberOfIterations = 3
+        self.__hierarchical_soft_max = False
+        self.__layer_size = 100
+        self.__negative_sampling_size = 5
+        self.__number_of_iterations = 3
         self.__window = 5
         self.__seed = 1
 
@@ -22,7 +22,7 @@ cdef class WordToVecParameter:
         int
             Size of the word vectors.
         """
-        return self.__layerSize
+        return self.__layer_size
 
     cpdef bint isCbow(self):
         """
@@ -66,7 +66,7 @@ cdef class WordToVecParameter:
         bool
             If hierarchical softmax will be applied, returns true; false otherwise.
         """
-        return self.__hierarchicalSoftMax
+        return self.__hierarchical_soft_max
 
     cpdef int getNegativeSamplingSize(self):
         """
@@ -77,7 +77,7 @@ cdef class WordToVecParameter:
         int
             Number of negative samples that will be withdrawn.
         """
-        return self.__negativeSamplingSize
+        return self.__negative_sampling_size
 
     cpdef int getNumberOfIterations(self):
         """
@@ -88,7 +88,7 @@ cdef class WordToVecParameter:
         int
             Number of epochs to train the network.
         """
-        return self.__numberOfIterations
+        return self.__number_of_iterations
 
     cpdef int getSeed(self):
         """
@@ -110,7 +110,7 @@ cdef class WordToVecParameter:
         layerSize : int
             New size of the word vectors.
         """
-        self.__layerSize = layerSize
+        self.__layer_size = layerSize
 
     cpdef setCbow(self, bint cbow):
         """
@@ -154,7 +154,7 @@ cdef class WordToVecParameter:
         hierarchicalSoftMax : bool
             True is hierarchical softMax applied; false otherwise.
         """
-        self.__hierarchicalSoftMax = hierarchicalSoftMax
+        self.__hierarchical_soft_max = hierarchicalSoftMax
 
     cpdef setNegativeSamplingSize(self, int negativeSamplingSize):
         """
@@ -165,7 +165,7 @@ cdef class WordToVecParameter:
         negativeSamplingSize : int
             New number of negative instances that will be withdrawn.
         """
-        self.__negativeSamplingSize = negativeSamplingSize
+        self.__negative_sampling_size = negativeSamplingSize
 
     cpdef setNumberOfIterations(self, int numberOfIterations):
         """
@@ -176,7 +176,7 @@ cdef class WordToVecParameter:
         numberOfIterations : int
             New number of iterations.
         """
-        self.__numberOfIterations = numberOfIterations
+        self.__number_of_iterations = numberOfIterations
 
     cpdef setSeed(self, int seed):
         """

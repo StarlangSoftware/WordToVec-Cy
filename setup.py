@@ -9,7 +9,7 @@ setup(
     ext_modules=cythonize(["WordToVec/*.pyx"],
                           compiler_directives={'language_level': "3"}),
     name='NlpToolkit-WordToVec-Cy',
-    version='1.0.3',
+    version='1.0.4',
     packages=['WordToVec'],
     package_data={'WordToVec': ['*.pxd', '*.pyx', '*.c']},
     url='https://github.com/StarlangSoftware/WordToVec-Cy',
