@@ -1,13 +1,14 @@
 import math
-from Corpus.Corpus cimport Corpus
-
+from Corpus.CorpusStream cimport CorpusStream
+from Corpus.Sentence cimport Sentence
+from DataStructure.CounterHashMap cimport CounterHashMap
 
 cdef class Vocabulary:
 
     def wordComparator(self, word: VocabularyWord):
         return word.getName()
 
-    def __init__(self, corpus: Corpus):
+    def __init__(self, corpus: CorpusStream):
         """
         Constructor for the Vocabulary class. For each distinct word in the corpus, a VocabularyWord
         instance is created. After that, words are sorted according to their occurrences. Unigram table is constructed,
@@ -18,12 +19,23 @@ cdef class Vocabulary:
         corpus : Corpus
             Corpus used to train word vectors using Word2Vec algorithm.
         """
-        cdef Word word
+        cdef str word
         cdef set word_list
-        word_list = corpus.getWordList()
+        cdef int i
+        cdef Sentence sentence
+        self.__total_number_of_words = 0
+        counts = CounterHashMap()
+        corpus.open()
+        sentence = corpus.getSentence()
+        while sentence is not None:
+            for i in range(sentence.wordCount()):
+                counts.put(sentence.getWord(i).getName())
+            self.__total_number_of_words = self.__total_number_of_words + sentence.wordCount()
+            sentence = corpus.getSentence()
+        corpus.close()
         self.__vocabulary = []
-        for word in word_list:
-            self.__vocabulary.append(VocabularyWord(word.getName(), corpus.getCount(word)))
+        for word in counts.keys():
+            self.__vocabulary.append(VocabularyWord(word, counts.get(word)))
         self.__vocabulary.sort()
         self.__createUniGramTable()
         self.__constructHuffmanTree()
@@ -64,6 +76,9 @@ cdef class Vocabulary:
             else:
                 hi = mid
         return lo
+
+    cpdef int getTotalNumberOfWords(self):
+        return self.__total_number_of_words
 
     cpdef VocabularyWord getWord(self, int index):
         """
