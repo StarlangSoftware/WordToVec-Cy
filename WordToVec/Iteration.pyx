@@ -1,7 +1,7 @@
 cdef class Iteration:
 
     def __init__(self,
-                 corpus: CorpusStream,
+                 corpus: AbstractCorpus,
                  wordToVecParameter: WordToVecParameter):
         """
         Constructor for the Iteration class. Get corpus and parameter as input, sets the corresponding
@@ -63,6 +63,7 @@ cdef class Iteration:
         """
         if self.__word_count - self.__last_word_count > 10000:
             self.__word_count_actual += self.__word_count - self.__last_word_count
+            print(str(self.__word_count_actual))
             self.__last_word_count = self.__word_count
             self.__alpha = self.__starting_alpha * (1 - self.__word_count_actual /
                                                     (self.__word_to_vec_parameter.getNumberOfIterations() *
@@ -91,13 +92,14 @@ cdef class Iteration:
         if self.__sentence_position >= currentSentence.wordCount():
             self.__word_count += currentSentence.wordCount()
             self.__sentence_position = 0
-            sentence = self.__corpus.getSentence()
+            sentence = self.__corpus.getNextSentence()
             if sentence is None:
                 self.__iteration_count = self.__iteration_count + 1
+                print("Iteration " + str(self.__iteration_count))
                 self.__word_count = 0
                 self.__last_word_count = 0
                 self.__corpus.close()
                 self.__corpus.open()
-                sentence = self.__corpus.getSentence()
+                sentence = self.__corpus.getNextSentence()
             return sentence
         return currentSentence

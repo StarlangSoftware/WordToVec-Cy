@@ -7,6 +7,7 @@ cdef class Vocabulary:
     cdef list __vocabulary
     cdef list __table
     cdef int __total_number_of_words
+    cdef dict __word_map
 
     cpdef int size(self)
     cpdef int getPosition(self, Word word)

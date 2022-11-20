@@ -23,10 +23,10 @@ cdef class VocabularyWord(Word):
         self.__code_length = 0
 
     def __lt__(self, other: VocabularyWord) -> bool:
-        return self.__count < other.__count
+        return self.__count > other.__count
 
     def __gt__(self, other: VocabularyWord) -> bool:
-        return self.__count > other.__count
+        return self.__count < other.__count
 
     def __eq__(self, other: VocabularyWord) -> bool:
         return self.__count == other.__count

@@ -1,5 +1,6 @@
 import math
-from Corpus.CorpusStream cimport CorpusStream
+
+from Corpus.AbstractCorpus cimport AbstractCorpus
 from Corpus.Sentence cimport Sentence
 from DataStructure.CounterHashMap cimport CounterHashMap
 
@@ -8,7 +9,7 @@ cdef class Vocabulary:
     def wordComparator(self, word: VocabularyWord):
         return word.getName()
 
-    def __init__(self, corpus: CorpusStream):
+    def __init__(self, corpus: AbstractCorpus):
         """
         Constructor for the Vocabulary class. For each distinct word in the corpus, a VocabularyWord
         instance is created. After that, words are sorted according to their occurrences. Unigram table is constructed,
@@ -23,15 +24,16 @@ cdef class Vocabulary:
         cdef set word_list
         cdef int i
         cdef Sentence sentence
+        self.__word_map = {}
         self.__total_number_of_words = 0
         counts = CounterHashMap()
         corpus.open()
-        sentence = corpus.getSentence()
+        sentence = corpus.getNextSentence()
         while sentence is not None:
             for i in range(sentence.wordCount()):
                 counts.put(sentence.getWord(i).getName())
             self.__total_number_of_words = self.__total_number_of_words + sentence.wordCount()
-            sentence = corpus.getSentence()
+            sentence = corpus.getNextSentence()
         corpus.close()
         self.__vocabulary = []
         for word in counts.keys():
@@ -40,6 +42,8 @@ cdef class Vocabulary:
         self.__createUniGramTable()
         self.__constructHuffmanTree()
         self.__vocabulary.sort(key=self.wordComparator)
+        for i in range(len(self.__vocabulary)):
+            self.__word_map[self.__vocabulary[i].getName()] = i
 
     cpdef int size(self):
         """
@@ -66,16 +70,7 @@ cdef class Vocabulary:
         int
          * @return Position of the word searched.
         """
-        cdef int lo, hi, mid
-        lo = 0
-        hi = len(self.__vocabulary)
-        while lo < hi:
-            mid = (lo + hi) // 2
-            if self.__vocabulary[mid].getName() < word.getName():
-                lo = mid + 1
-            else:
-                hi = mid
-        return lo
+        return self.__word_map[word.getName()]
 
     cpdef int getTotalNumberOfWords(self):
         return self.__total_number_of_words
