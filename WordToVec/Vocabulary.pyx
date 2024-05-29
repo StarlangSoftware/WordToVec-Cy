@@ -73,6 +73,10 @@ cdef class Vocabulary:
         return self.__word_map[word.getName()]
 
     cpdef int getTotalNumberOfWords(self):
+        """
+        Accessor for the total number of words
+        :return: Total number of words
+        """
         return self.__total_number_of_words
 
     cpdef VocabularyWord getWord(self, int index):

@@ -5,6 +5,10 @@ from Dictionary.VectorizedWord cimport VectorizedWord
 cdef class SemanticDataSet:
 
     def __init__(self, file_name: str = None):
+        """
+        Constructor for the semantic dataset. Reads word pairs and their similarity scores from an input file.
+        :param file_name: Input file that stores the word pair and similarity scores.
+        """
         cdef list lines, items
         cdef str line
         self.__pairs = []
@@ -17,6 +21,12 @@ cdef class SemanticDataSet:
                 self.__pairs.append(WordPair(items[0], items[1], float(items[2])))
 
     cpdef SemanticDataSet calculateSimilarities(self, VectorizedDictionary dictionary):
+        """
+        Calculates the similarities between words in the dataset. The word vectors will be taken from the input
+        vectorized dictionary.
+        :param dictionary: Vectorized dictionary that stores the word vectors.
+        :return: Word pairs and their calculated similarities stored as a semantic dataset.
+        """
         cdef int i
         cdef SemanticDataSet result
         cdef str word1, word2
@@ -40,6 +50,10 @@ cdef class SemanticDataSet:
         return result
 
     cpdef int size(self):
+        """
+        Returns the size of the semantic dataset.
+        :return: Size of the semantic dataset.
+        """
         return len(self.__pairs)
 
     @staticmethod
@@ -52,9 +66,18 @@ cdef class SemanticDataSet:
             return 0
 
     cpdef sort(self):
+        """
+        Sorts the word pairs in the dataset according to the WordPairComparator.
+        """
         self.__pairs.sort(key=cmp_to_key(self.wordPairComparator))
 
     cpdef index(self, WordPair wordPair):
+        """
+        Finds and returns the index of a word pair in the pairs array list. If there is no such word pair, it
+        returns -1.
+        :param wordPair: Word pair to search in the semantic dataset.
+        :return: Index of the given word pair in the pairs array list. If it does not exist, the method returns -1.
+        """
         cdef int i
         for i in range(len(self.__pairs)):
             if wordPair == self.__pairs[i]:
@@ -62,6 +85,11 @@ cdef class SemanticDataSet:
         return -1
 
     cpdef float spearmanCorrelation(self, SemanticDataSet semanticDataSet):
+        """
+        Calculates the Spearman correlation coefficient with this dataset to the given semantic dataset.
+        :param semanticDataSet: Given semantic dataset with which Spearman correlation coefficient is calculated.
+        :return: Spearman correlation coefficient with the given semantic dataset.
+        """
         cdef float total, ratio
         cdef int i, rank1, rank2, di, n
         total = 0
