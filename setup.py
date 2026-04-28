@@ -8,8 +8,8 @@ from Cython.Build import cythonize
 setup(
     ext_modules=cythonize(["WordToVec/*.pyx"],
                           compiler_directives={'language_level': "3"}),
-    name='nlptoolkit-wordtovec-cy',
-    version='1.0.6',
+    name='nlptoolkit_wordtovec_cy',
+    version='1.0.7',
     packages=['WordToVec'],
     package_data={'WordToVec': ['*.pxd', '*.pyx', '*.c']},
     url='https://github.com/StarlangSoftware/WordToVec-Cy',
